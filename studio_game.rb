@@ -26,6 +26,16 @@ puts "#{player_4_name.capitalize.ljust(30, '.')} #{player_4_health} health"
 
 puts "#{player_2_health.to_s.reverse.to_i}"
 
-# puts "#{player_one_name}'s health is #{player_one_health}"
+def time
+  Time.now.strftime("%-l:%M:%S%p").downcase
+end
 
-# puts "Players:\n\t#{player_one_name}\n\t#{player_two_name}\n\t#{player_three_name}"
+
+def say_hello( name, health = 0 )
+  "I'm #{name.capitalize} with a health of #{health} as of #{time}"
+end
+
+puts say_hello( player_1_name, player_1_health )
+puts say_hello( player_2_name, player_3_health )
+puts say_hello( player_3_name, player_2_health )
+puts say_hello( player_4_name, player_4_health )
