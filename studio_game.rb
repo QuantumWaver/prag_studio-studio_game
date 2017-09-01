@@ -12,6 +12,9 @@ class Player
   end
 
   def name=( new_name )
+    if new_name.empty?
+      raise "Name can't be empty asshole!"
+    end
     @name = new_name.capitalize
   end
 
@@ -50,13 +53,27 @@ puts player2
 puts player3
 puts player4
 
-puts
-player1.hit
-puts player1
-player1.heal
-puts player1
+players = [player1, player2, player3]
 
-puts
-player1.name = "keViN"
-puts player1
+puts "There are #{players.size} in the game:"
+players.each do |player|
+  puts "\t#{player}"
+end
+
+players.pop
+players.push(player4)
+
+players.each do |player|
+  player.hit
+  player.hit
+  player.heal
+  puts player
+end
+
+
+
+
+
+
+
 
