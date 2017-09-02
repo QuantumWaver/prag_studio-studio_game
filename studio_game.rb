@@ -1,5 +1,5 @@
-puts "Welcome to THE GAME OF THRONES!"
-puts "Game Started on #{Time.now.strftime("%A %m/%d/%Y at %-l:%M%p")}"
+
+# puts "Game Started on #{Time.now.strftime("%A %m/%d/%Y at %-l:%M%p")}"
 
 
 class Player
@@ -41,34 +41,77 @@ class Player
   end
 end
 
+class Game
+  attr_reader :title
 
-player1 = Player.new( "Larry", 60 )
-player2 = Player.new( "curly", 125 )
-player3 = Player.new( "moe", 100 )
-player4 = Player.new( "shemp", 90 )
+  def initialize(title)
+    @title = title.upcase
+    @players = []
+  end
 
-puts
-puts player1
-puts player2
-puts player3
-puts player4
+  def add_player(player)
+    @players << player
+  end
 
-players = [player1, player2, player3]
+  def play
+    puts "There are #{@players.size} players in #{@title}:"
+    @players.each do |player|
+      puts "\t#{player}"
+    end
+    puts
 
-puts "There are #{players.size} in the game:"
-players.each do |player|
-  puts "\t#{player}"
+    @players.each do |player|
+      player.hit
+      player.hit
+      player.heal
+      puts player
+    end
+  end
 end
 
-players.pop
-players.push(player4)
 
-players.each do |player|
-  player.hit
-  player.hit
-  player.heal
-  puts player
-end
+the_game = Game.new("winterfell")
+
+the_game.add_player( Player.new("Eddard", 125) )
+the_game.add_player( Player.new("Rob", 90) )
+the_game.add_player( Player.new("Jon") )
+
+the_game.play
+
+
+
+
+
+
+
+
+# player1 = Player.new( "Larry", 60 )
+# player2 = Player.new( "curly", 125 )
+# player3 = Player.new( "moe", 100 )
+# player4 = Player.new( "shemp", 90 )
+
+# puts
+# puts player1
+# puts player2
+# puts player3
+# puts player4
+
+# players = [player1, player2, player3]
+
+# puts "There are #{players.size} in the game:"
+# players.each do |player|
+#   puts "\t#{player}"
+# end
+
+# players.pop
+# players.push(player4)
+
+# players.each do |player|
+#   player.hit
+#   player.hit
+#   player.heal
+#   puts player
+# end
 
 
 
