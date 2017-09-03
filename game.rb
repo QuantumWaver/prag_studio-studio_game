@@ -1,5 +1,4 @@
-require_relative 'player'
-require_relative 'die'
+require_relative 'game_turn'
 
 class Game
   attr_reader :title
@@ -7,7 +6,6 @@ class Game
   def initialize(title)
     @title = title.upcase
     @players = []
-    @dice = Die.new(1..6)
   end
 
   def add_player(player)
@@ -23,16 +21,8 @@ class Game
     puts
 
     @players.each do |player|
-      case @dice.roll
-      when 1..2
-        player.hit
-      when 3..4
-        puts "#{player.name} was skipped"
-      else
-        player.heal
-      end
-      puts player
-      puts
+      GameTurn.take_turn(player)
+      puts "#{player}\n\n"
     end
   end
 end
