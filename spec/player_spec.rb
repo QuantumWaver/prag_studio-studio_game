@@ -1,4 +1,4 @@
-require_relative 'player'
+require_relative '../player'
 
 describe Player do
 
@@ -44,6 +44,28 @@ describe Player do
 
     it "has a health of 100" do
       expect(@player.health).to eq(100)
+    end
+  end
+
+  context "with a health greater than 100" do
+    before do
+      @player = Player.new("jeff", 150)
+    end
+
+    it "is strong" do
+      #expect(@player.strong?).to be true
+      expect(@player).to be_strong
+    end
+  end
+
+  context "with a health of 100 or less" do
+    before do
+      @player = Player.new("jeff", 100)
+    end
+
+    it "is weak" do
+      #expect(@player.strong?).to be false
+      expect(@player).not_to be_strong
     end
   end
 

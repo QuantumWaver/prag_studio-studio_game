@@ -8,3 +8,9 @@
 
 # Ignore Ruby Gems
 /vendor/ruby
+
+# Sublime projects
+*.sublime-workspace
+
+/config/.DS_Store
+/.DS_Store

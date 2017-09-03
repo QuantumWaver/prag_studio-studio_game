@@ -1,4 +1,5 @@
 require_relative 'player'
+require_relative 'die'
 
 class Game
   attr_reader :title
@@ -6,6 +7,7 @@ class Game
   def initialize(title)
     @title = title.upcase
     @players = []
+    @dice = Die.new(1..6)
   end
 
   def add_player(player)
@@ -21,10 +23,16 @@ class Game
     puts
 
     @players.each do |player|
-      player.hit
-      player.hit
-      player.heal
+      case @dice.roll
+      when 1..2
+        player.hit
+      when 3..4
+        puts "#{player.name} was skipped"
+      else
+        player.heal
+      end
       puts player
+      puts
     end
   end
 end

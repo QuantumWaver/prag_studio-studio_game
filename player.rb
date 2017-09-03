@@ -22,6 +22,10 @@ class Player
     @health + @name.length
   end
 
+  def strong?
+    @health > 100
+  end
+
   def hit
     @health -= 10
     puts "#{@name} got hit!"
