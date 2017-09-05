@@ -27,14 +27,14 @@ describe Player do
     expect(@player.score).to eq(@player.health + @player.name.length)
   end
 
-  it "increases health by 15 when healed" do
+  it "increases health by #{Player::HEAL_AMT} when healed" do
     @player.heal
-    expect(@player.health).to eq(@initial_health + 15)
+    expect(@player.health).to eq(@initial_health + Player::HEAL_AMT)
   end
 
-  it "decreases health by 10 when hit" do
+  it "decreases health by #{Player::HIT_DAMAGE} when hit" do
     @player.hit
-    expect(@player.health).to eq(@initial_health - 10)
+    expect(@player.health).to eq(@initial_health - Player::HIT_DAMAGE)
   end
 
   context "created with a default health" do

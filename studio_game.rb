@@ -10,5 +10,3 @@ the_game.add_player( Player.new("Jon") )
 the_game.play(3)
 the_game.print_stats
 
-
-
