@@ -1,5 +1,6 @@
 require_relative 'player'
 require_relative 'die'
+require_relative "treasure_trove"
 
 module GameTurn
 
@@ -13,6 +14,11 @@ module GameTurn
     else
       player.heal
     end
+
+    treasure = TreasureTrove.random
+    puts "#{player.name} found a #{treasure.name} worth #{treasure.points}!"
+
+    puts player
   end
 
 end

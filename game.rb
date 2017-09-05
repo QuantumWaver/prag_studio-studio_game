@@ -1,4 +1,5 @@
 require_relative 'game_turn'
+require_relative 'treasure_trove'
 
 class Game
   attr_reader :title
@@ -19,11 +20,12 @@ class Game
       puts "\t#{player}"
     end
 
+    TreasureTrove.print_treasures
+
     1.upto(rounds) do |count|
       puts "\nRound #{count}"
       @players.each do |player|
         GameTurn.take_turn(player)
-        puts player
       end
     end
   end
@@ -37,7 +39,8 @@ class Game
     sorted.each { |p| p.print_name_and_health }
 
     puts "\n#{weak.length} weak players:"
-    weak.each { |p| p.print_name_and_health }
+    sorted = weak.sort { |p1, p2| p1.health <=> p2.health }
+    sorted.each { |p| p.print_name_and_health }
 
     puts "\n#{self.title} High Scores"
     @players.sort.each do |player|
