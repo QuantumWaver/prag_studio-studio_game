@@ -80,7 +80,6 @@ describe Player do
 
     it "is sorted by decreasing score" do
       expect(@players.sort).to eq([@player2, @player3, @player1])
-      # @players.sort.should == [@player3, @player2, @player1]
     end
   end
 

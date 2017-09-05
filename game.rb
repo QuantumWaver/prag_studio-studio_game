@@ -33,7 +33,8 @@ class Game
     strong, weak = @players.partition { |player| player.strong? }
 
     puts "\n#{strong.length} strong players:"
-    strong.each { |p| p.print_name_and_health }
+    sorted = strong.sort { |p1, p2| p2.health <=> p1.health }
+    sorted.each { |p| p.print_name_and_health }
 
     puts "\n#{weak.length} weak players:"
     weak.each { |p| p.print_name_and_health }
