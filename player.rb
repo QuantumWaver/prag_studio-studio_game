@@ -36,6 +36,14 @@ class Player
     puts "#{@name} got healed!"
   end
 
+  def <=>(other)
+    other.score <=> score
+  end
+
+  def print_name_and_health
+    puts "#{name} (#{health})"
+  end
+
   def to_s
     "I'm #{@name} with a health of #{@health} and a score of #{score} as of #{time}"
   end

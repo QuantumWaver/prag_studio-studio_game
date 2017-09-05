@@ -12,17 +12,49 @@ class Game
     @players << player
   end
 
-  def play
+  def play(rounds)
     puts "Game #{@title} started on #{Time.now.strftime("%A %m/%d/%Y at %-l:%M%p")}"
     puts "There are #{@players.size} players:"
     @players.each do |player|
       puts "\t#{player}"
     end
-    puts
 
-    @players.each do |player|
-      GameTurn.take_turn(player)
-      puts "#{player}\n\n"
+    1.upto(rounds) do |count|
+      puts "\nRound #{count}"
+      @players.each do |player|
+        GameTurn.take_turn(player)
+        puts player
+      end
     end
   end
+
+  def print_stats
+    puts "\n#{self.title} Statistics:"
+    strong, weak = @players.partition { |player| player.strong? }
+
+    puts "\n#{strong.length} strong players:"
+    strong.each { |p| p.print_name_and_health }
+
+    puts "\n#{weak.length} weak players:"
+    weak.each { |p| p.print_name_and_health }
+
+    puts "\n#{self.title} High Scores"
+    @players.sort.each do |player|
+      formated_name = player.name.ljust(20, '.')
+      puts "#{formated_name} #{player.score}"
+    end
+  end
+end
+
+
+# here '__FILE__' holds the name of the file "game.rb",
+# and '$0' holds the name of the currently running Ruby program file
+# so this code will only be executed if you just run the "game.rb" file
+if __FILE__ == $0 # or $PROGRAM_NAME
+  game = Game.new("rush")
+  game.add_player(Player.new( "geddy", 120 ))
+  game.add_player(Player.new( "Neil", 60 ))
+  game.add_player(Player.new( "Alex", 133 ))
+
+  game.print_stats
 end
