@@ -23,6 +23,13 @@ describe Player do
                                 "score = #{@player.score} as of #{time}")
   end
 
+  it "can be created from a csv string" do
+    csv_line = "jon, 2112"
+    player = Player.from_csv(csv_line)
+    expect(player.name).to eq("Jon")
+    expect(player.health).to eq(2112)
+  end
+
   it "computes a score as the sum of its health and points" do
     @player.found_treasure(Treasure.new(:bow, 150))
     @player.found_treasure(Treasure.new(:bow, 150))

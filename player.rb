@@ -13,6 +13,11 @@ class Player
     @found_treasures = Hash.new(0)
   end
 
+  def self.from_csv( line )
+    name, init_health = line.chomp.split(',')
+    Player.new(name, Integer(init_health))
+  end
+
   def name=( new_name )
     if new_name.empty?
       raise "Name can't be empty asshole!"

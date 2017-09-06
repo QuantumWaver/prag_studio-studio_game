@@ -54,9 +54,7 @@ describe Game do
     end
   end
 
-
   it "computes total points for all treasures found" do
-
     player2 = Player.new("Rob")
     @game.add_player(player2)
     player3 = Player.new("Jon")
@@ -84,4 +82,5 @@ describe Game do
 
     expect(@game.total_points).to eq(total_points)
   end
+
 end
