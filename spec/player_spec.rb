@@ -30,6 +30,30 @@ describe Player do
     expect(@player.score).to eq(@player.health + @player.points)
   end
 
+  it "yields each found treasure and its total points" do
+    @player.found_treasure(Treasure.new(:skillet, 100))
+    @player.found_treasure(Treasure.new(:skillet, 100))
+    @player.found_treasure(Treasure.new(:hammer, 50))
+    @player.found_treasure(Treasure.new(:bottle, 5))
+    @player.found_treasure(Treasure.new(:bottle, 5))
+    @player.found_treasure(Treasure.new(:bottle, 5))
+    @player.found_treasure(Treasure.new(:bottle, 5))
+    @player.found_treasure(Treasure.new(:bottle, 5))
+
+    yielded = []
+    @player.each_found_treasure do |treasure|
+      yielded << treasure
+    end
+
+    expected_yielded = [
+      Treasure.new(:skillet, 200),
+      Treasure.new(:hammer, 50),
+      Treasure.new(:bottle, 25)
+    ]
+
+    expect(yielded).to eq(expected_yielded)
+  end
+
   it "increases health by #{Player::HEAL_AMT} when healed" do
     @player.heal
     expect(@player.health).to eq(@initial_health + Player::HEAL_AMT)

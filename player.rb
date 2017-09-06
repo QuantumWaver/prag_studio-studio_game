@@ -38,6 +38,16 @@ class Player
     @found_treasures.values.reduce( 0, :+ )
   end
 
+  def each_found_treasure
+    if block_given?
+      @found_treasures.each do |tname, tpoints|
+        yield Treasure.new(tname, tpoints)
+      end
+    else
+      raise "No block given for each_found_treasure method!!"
+    end
+  end
+
   def strong?
     @health > 100
   end

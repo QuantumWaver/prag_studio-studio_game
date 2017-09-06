@@ -21,12 +21,19 @@ class Game
 
     TreasureTrove.print_treasures
 
+    finished_rounds = 0
     1.upto(rounds) do |count|
-      puts "\nRound #{count}"
-      @players.each do |player|
-        GameTurn.take_turn(player)
+      end_game = block_given? ? yield : false
+      unless end_game
+        puts "\nRound #{count}"
+        @players.each do |player|
+          GameTurn.take_turn(player)
+        end
+        finished_rounds += 1
       end
     end
+
+    puts "\nGame Over after #{finished_rounds} rounds!!"
   end
 
   def total_points
@@ -45,13 +52,16 @@ class Game
     sorted = weak.sort { |p1, p2| p1.health <=> p2.health }
     sorted.each { |p| p.print_name_and_health }
 
-    puts "\nPlayer total treasure points:"
     sorted = @players.sort { |p1, p2| p2.points <=> p1.points }
     sorted.each do |player|
-      formated_name = player.name.ljust(20, '.')
-      puts "#{formated_name} #{player.points}"
+      puts "\n#{player.name} has #{player.points} total points:"
+      player.each_found_treasure do |treasure|
+        puts "\t#{treasure.points} total #{treasure.name} points"
+      end
     end
-    puts "#{total_points} total points from all treasures found"
+
+    puts "\n#{total_points} total points from all treasures found"
+
 
     puts "\nHigh Scores"
     @players.sort.each do |player|
@@ -71,7 +81,7 @@ if __FILE__ == $0 # or $PROGRAM_NAME
   game.add_player(Player.new( "Neil", 60 ))
   game.add_player(Player.new( "Alex", 133 ))
 
-  game.play(2)
+  game.play(3) { game.total_points > 800 }
 
   game.print_stats
 
