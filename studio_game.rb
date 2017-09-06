@@ -1,4 +1,6 @@
 require_relative 'game'
+require_relative 'clumsy_player'
+require_relative 'berserk_player'
 
 
 the_game = Game.new("winterfell")
@@ -8,6 +10,12 @@ the_game = Game.new("winterfell")
 # the_game.add_player( Player.new("Jon") )
 
 the_game.load_players(ARGV.shift || "got_players.txt")
+
+klutz = ClumsyPlayer.new("klutz", 105, 15)
+the_game.add_player(klutz)
+
+berserker = BerserkPlayer.new("berserker", 50)
+the_game.add_player(berserker)
 
 loop do
   puts "\nHow many rounds? ('quit' to exit)"

@@ -4,8 +4,8 @@ class Player
   attr_reader :health
   attr_accessor :name
 
-  HIT_DAMAGE = 15
-  HEAL_AMT = 10
+  HIT_DAMAGE = 10
+  HEAL_AMT = 15
 
   def initialize( name, health=100)
     @name = name.capitalize
