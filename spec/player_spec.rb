@@ -18,13 +18,16 @@ describe Player do
 
   it "has a string representation" do
     time = Time.now.strftime("%-l:%M:%S%p").downcase
-    expect(@player.to_s).to eq("I'm #{@player.name} with a health of " +
-                                "#{@player.health} and a score of " +
-                                "#{@player.score} as of #{time}")
+    expect(@player.to_s).to eq("I'm #{@player.name} with health = #{@player.health}, " +
+                                "points = #{@player.points}, " +
+                                "score = #{@player.score} as of #{time}")
   end
 
-  it "computes a score as the sum of its health and length of name" do
-    expect(@player.score).to eq(@player.health + @player.name.length)
+  it "computes a score as the sum of its health and points" do
+    @player.found_treasure(Treasure.new(:bow, 150))
+    @player.found_treasure(Treasure.new(:bow, 150))
+    @player.found_treasure(Treasure.new(:sword, 400))
+    expect(@player.score).to eq(@player.health + @player.points)
   end
 
   it "increases health by #{Player::HEAL_AMT} when healed" do
@@ -35,6 +38,19 @@ describe Player do
   it "decreases health by #{Player::HIT_DAMAGE} when hit" do
     @player.hit
     expect(@player.health).to eq(@initial_health - Player::HIT_DAMAGE)
+  end
+
+  it "computes points as the sum of all treasure points" do
+    expect(@player.points).to eq(0)
+
+    @player.found_treasure(Treasure.new(:bow, 150))
+    expect(@player.points).to eq(150)
+
+    @player.found_treasure(Treasure.new(:sword, 400))
+    expect(@player.points).to eq(550)
+
+    @player.found_treasure(Treasure.new(:bow, 150))
+    expect(@player.points).to eq(700)
   end
 
   context "created with a default health" do

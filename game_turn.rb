@@ -15,8 +15,7 @@ module GameTurn
       player.heal
     end
 
-    treasure = TreasureTrove.random
-    puts "#{player.name} found a #{treasure.name} worth #{treasure.points}!"
+    player.found_treasure(TreasureTrove.random)
 
     puts player
   end

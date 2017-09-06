@@ -48,5 +48,40 @@ describe Game do
       expect(@player.health).to eq(current_health)
     end
 
+    it "assigns a treasure for points during a player's turn" do
+      @game.play(1)
+      expect(@player.points).not_to be_zero
+    end
+  end
+
+
+  it "computes total points for all treasures found" do
+
+    player2 = Player.new("Rob")
+    @game.add_player(player2)
+    player3 = Player.new("Jon")
+    @game.add_player(player3)
+
+    t1 = Treasure.new(:bow, 100)
+    t2 = Treasure.new(:axe, 200)
+    t3 = Treasure.new(:sword, 300)
+
+    total_points = 0
+    @player.found_treasure(t1)
+    total_points += t1.points
+
+    @player.found_treasure(t1)
+    total_points += t1.points
+
+    player2.found_treasure(t2)
+    total_points += t2.points
+
+    player2.found_treasure(t3)
+    total_points += t3.points
+
+    player3.found_treasure(t2)
+    total_points += t2.points
+
+    expect(@game.total_points).to eq(total_points)
   end
 end

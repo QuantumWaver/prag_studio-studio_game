@@ -1,3 +1,5 @@
+require_relative 'treasure_trove'
+
 class Player
   attr_reader :health
   attr_accessor :name
@@ -8,6 +10,7 @@ class Player
   def initialize( name, health=100)
     @name = name.capitalize
     @health = health
+    @found_treasures = Hash.new(0)
   end
 
   def name=( new_name )
@@ -22,7 +25,17 @@ class Player
   end
 
   def score
-    @health + @name.length
+    self.health + points
+  end
+
+  def found_treasure(treasure)
+    @found_treasures[treasure.name] += treasure.points
+    puts "#{self.name} found a #{treasure.name} worth #{treasure.points}!"
+    puts "#{self.name}'s treasures: #{@found_treasures}"
+  end
+
+  def points
+    @found_treasures.values.reduce( 0, :+ )
   end
 
   def strong?
@@ -48,7 +61,7 @@ class Player
   end
 
   def to_s
-    "I'm #{@name} with a health of #{@health} and a score of #{score} as of #{time}"
+    "I'm #{@name} with health = #{@health}, points = #{points}, score = #{score} as of #{time}"
   end
 end
 
@@ -58,12 +71,14 @@ end
 # so this code will only be executed if you just run the "player.rb" file
 if __FILE__ == $0 # or $PROGRAM_NAME
   puts "Player Examples:"
-  player1 = Player.new( "Larry", 60 )
-  player2 = Player.new( "curly", 125 )
+  player1 = Player.new( "neil", 60 )
+  player2 = Player.new( "geddy", 125 )
+  player3 = Player.new( "alex", 125 )
 
   puts player1
   puts player2
 
   player1.hit
   puts player1
+
 end

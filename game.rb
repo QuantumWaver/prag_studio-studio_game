@@ -1,5 +1,4 @@
 require_relative 'game_turn'
-require_relative 'treasure_trove'
 
 class Game
   attr_reader :title
@@ -30,6 +29,10 @@ class Game
     end
   end
 
+  def total_points
+    @players.reduce(0) { |sum, player| sum += player.points }
+  end
+
   def print_stats
     puts "\n#{self.title} Statistics:"
     strong, weak = @players.partition { |player| player.strong? }
@@ -42,7 +45,15 @@ class Game
     sorted = weak.sort { |p1, p2| p1.health <=> p2.health }
     sorted.each { |p| p.print_name_and_health }
 
-    puts "\n#{self.title} High Scores"
+    puts "\nPlayer total treasure points:"
+    sorted = @players.sort { |p1, p2| p2.points <=> p1.points }
+    sorted.each do |player|
+      formated_name = player.name.ljust(20, '.')
+      puts "#{formated_name} #{player.points}"
+    end
+    puts "#{total_points} total points from all treasures found"
+
+    puts "\nHigh Scores"
     @players.sort.each do |player|
       formated_name = player.name.ljust(20, '.')
       puts "#{formated_name} #{player.score}"
@@ -60,5 +71,8 @@ if __FILE__ == $0 # or $PROGRAM_NAME
   game.add_player(Player.new( "Neil", 60 ))
   game.add_player(Player.new( "Alex", 133 ))
 
+  game.play(2)
+
   game.print_stats
+
 end
