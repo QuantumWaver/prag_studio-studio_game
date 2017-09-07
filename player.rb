@@ -1,6 +1,8 @@
 require_relative 'treasure_trove'
 
 class Player
+  include Comparable
+
   attr_reader :health
   attr_accessor :name
 
@@ -68,7 +70,8 @@ class Player
   end
 
   def <=>(other)
-    other.score <=> score
+    self.score <=> other.score
+    #other.score <=> self.score
   end
 
   def print_name_and_health
@@ -95,5 +98,7 @@ if __FILE__ == $0 # or $PROGRAM_NAME
 
   player1.hit
   puts player1
+
+  puts player1 < player2
 
 end

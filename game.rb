@@ -73,7 +73,6 @@ class Game
 
     puts "\n#{total_points} total points from all treasures found"
 
-
     puts "\nHigh Scores:"
     puts get_formatted_high_scores_list
   end
@@ -87,7 +86,7 @@ class Game
 
   def get_formatted_high_scores_list
     scores = ""
-    @players.sort.each do |player|
+    @players.sort.reverse.each do |player|
       formated_name = player.name.ljust(20, '.')
       scores += "#{formated_name} #{player.score}\n"
     end
