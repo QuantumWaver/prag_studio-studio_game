@@ -1,13 +1,12 @@
 require_relative 'treasure_trove'
+require_relative 'playable'
 
 class Player
   include Comparable
+  include Playable
 
   attr_reader :health
   attr_accessor :name
-
-  HIT_DAMAGE = 10
-  HEAL_AMT = 15
 
   def initialize( name, health=100)
     @name = name.capitalize
@@ -55,23 +54,9 @@ class Player
     end
   end
 
-  def strong?
-    @health > 100
-  end
-
-  def hit
-    @health -= HIT_DAMAGE
-    puts "#{@name} got hit!"
-  end
-
-  def heal
-    @health += HEAL_AMT
-    puts "#{@name} got healed!"
-  end
-
+  # Used in the Comparable module
   def <=>(other)
     self.score <=> other.score
-    #other.score <=> self.score
   end
 
   def print_name_and_health
@@ -80,6 +65,13 @@ class Player
 
   def to_s
     "I'm #{@name} with health = #{@health}, points = #{points}, score = #{score} as of #{time}"
+  end
+
+  private
+  # ONLY needed in the Playable module, so no need to
+  # expose it outside the object
+  def health= (new_health)
+    @health = new_health
   end
 end
 
@@ -104,5 +96,7 @@ if __FILE__ == $0 # or $PROGRAM_NAME
   puts player1 == player2
   puts player3 == player2
 
+  puts Player::HIT_DAMAGE
+  puts Playable::HIT_DAMAGE
 
 end

@@ -95,6 +95,7 @@ class Game
     scores
   end
 
+  # Used in the Enumerable module
   def each
     @players.each do |player|
       yield player
@@ -113,6 +114,13 @@ if __FILE__ == $0 # or $PROGRAM_NAME
   game.play(3) { game.total_points > 600 }
   game.print_stats
 
-  p game.select { |player| player.health > 150 }
+  puts "\nFind players without 'l' in name using 'reject':"
+  puts game.reject { |player| player.name.include?('l') }
+
+  puts "\nSelect players with points above 250:"
+  puts game.select { |player| player.points > 250 }
+
+  puts "\nFind player with greatest health:"
+  puts game.max_by { |player| player.health }
 
 end

@@ -125,8 +125,8 @@ describe Player do
       @players = [@player1, @player2, @player3]
     end
 
-    it "is sorted by decreasing score" do
-      expect(@players.sort).to eq([@player2, @player3, @player1])
+    it "is sorted by increasing score" do
+      expect(@players.sort).to eq([@player1, @player3, @player2])
     end
   end
 

@@ -1,13 +1,19 @@
+require_relative 'auditable'
+
 class Die
+  include Auditable
+
   attr_reader :number
 
   def initialize( range )
     @range = range
-    roll
+    roll(false)
   end
 
-  def roll
+  def roll(allow_audit=true)
     @number = rand(@range)
+    audit if allow_audit
+    @number
   end
 end
 
@@ -17,9 +23,7 @@ end
 if __FILE__ == $0 # or $PROGRAM_NAME
   dice = Die.new(1..8)
 
-  i = 0
-  until i == 10
+  1.upto(10) do
     puts dice.roll
-    i += 1
   end
 end
