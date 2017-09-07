@@ -100,5 +100,9 @@ if __FILE__ == $0 # or $PROGRAM_NAME
   puts player1
 
   puts player1 < player2
+  puts player1 > player2
+  puts player1 == player2
+  puts player3 == player2
+
 
 end

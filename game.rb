@@ -2,6 +2,8 @@ require_relative 'game_turn'
 require 'csv'
 
 class Game
+  include Enumerable
+
   attr_reader :title
 
   def initialize(title)
@@ -92,6 +94,12 @@ class Game
     end
     scores
   end
+
+  def each
+    @players.each do |player|
+      yield player
+    end
+  end
 end
 
 
@@ -104,5 +112,7 @@ if __FILE__ == $0 # or $PROGRAM_NAME
 
   game.play(3) { game.total_points > 600 }
   game.print_stats
+
+  p game.select { |player| player.health > 150 }
 
 end
