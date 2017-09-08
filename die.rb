@@ -1,19 +1,21 @@
 require_relative 'auditable'
 
-class Die
-  include Auditable
+module PragStudioGame
+  class Die
+    include Auditable
 
-  attr_reader :number
+    attr_reader :number
 
-  def initialize( range )
-    @range = range
-    roll(false)
-  end
+    def initialize( range )
+      @range = range
+      roll(false)
+    end
 
-  def roll(allow_audit=true)
-    @number = rand(@range)
-    audit if allow_audit
-    @number
+    def roll(allow_audit=true)
+      @number = rand(@range)
+      audit if allow_audit
+      @number
+    end
   end
 end
 
@@ -21,7 +23,7 @@ end
 # and '$0' holds the name of the currently running Ruby program file
 # so this code will only be executed if you just run the "die.rb" file
 if __FILE__ == $0 # or $PROGRAM_NAME
-  dice = Die.new(1..8)
+  dice = PragStudioGame::Die.new(1..8)
 
   1.upto(10) do
     puts dice.roll
