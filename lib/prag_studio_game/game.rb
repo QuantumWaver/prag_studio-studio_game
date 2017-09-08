@@ -111,7 +111,7 @@ end
 # so this code will only be executed if you just run the "game.rb" file
 if __FILE__ == $0 # or $PROGRAM_NAME
   game = PragStudioGame::Game.new("rush")
-  game.load_players("rush_players.txt")
+  game.load_players('../../bin/rush_players.txt')
 
   game.play(3) { game.total_points > 600 }
   game.print_stats
