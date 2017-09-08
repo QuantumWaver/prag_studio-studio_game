@@ -1,4 +1,4 @@
-require_relative '../clumsy_player'
+require 'prag_studio_game/clumsy_player'
 
 module PragStudioGame
   describe ClumsyPlayer do

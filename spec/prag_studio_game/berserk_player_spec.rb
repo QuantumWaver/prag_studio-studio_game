@@ -1,4 +1,4 @@
-require_relative '../berserk_player'
+require 'prag_studio_game/berserk_player'
 
 module PragStudioGame
   describe BerserkPlayer do

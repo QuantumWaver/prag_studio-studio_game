@@ -1,4 +1,4 @@
-require_relative '../treasure_trove'
+require 'prag_studio_game/treasure_trove'
 
 module PragStudioGame
   describe Treasure do

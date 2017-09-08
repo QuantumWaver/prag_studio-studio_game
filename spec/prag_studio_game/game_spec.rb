@@ -1,4 +1,4 @@
-require_relative '../game'
+require 'prag_studio_game/game'
 
 module PragStudioGame
   describe Game do

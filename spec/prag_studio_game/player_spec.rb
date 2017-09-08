@@ -1,4 +1,4 @@
-require_relative '../player'
+require 'prag_studio_game/player'
 
 module PragStudioGame
   describe Player do

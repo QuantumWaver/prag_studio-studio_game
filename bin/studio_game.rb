@@ -1,6 +1,6 @@
-require_relative 'game'
-require_relative 'clumsy_player'
-require_relative 'berserk_player'
+require_relative '../lib/prag_studio_game/game'
+require_relative '../lib/prag_studio_game/clumsy_player'
+require_relative '../lib/prag_studio_game/berserk_player'
 
 
 the_game = PragStudioGame::Game.new("winterfell")
@@ -9,7 +9,15 @@ the_game = PragStudioGame::Game.new("winterfell")
 # the_game.add_player( Player.new("Rob", 90) )
 # the_game.add_player( Player.new("Jon") )
 
-the_game.load_players(ARGV.shift || "got_players.txt")
+# Here we create a default_player_file variable that contains the absolute
+# directory path to the players.csv file. To get the absolute path, we first
+# get the path to the directory that contains the studio_game.rb file
+# (remember that the name of the current file is held in the __FILE__ variable).
+# Then we tack on the players.csv file name, since it's also in the bin directory.
+default_player_file = File.join(File.dirname(__FILE__), 'got_players.txt')
+
+
+the_game.load_players(ARGV.shift || default_player_file )
 
 klutz = PragStudioGame::ClumsyPlayer.new("klutz", 105, 15)
 the_game.add_player(klutz)
